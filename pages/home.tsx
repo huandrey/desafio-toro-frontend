@@ -1,63 +1,78 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Header from '../components/Header'
-import pig from '../assets/pig.svg';
-import { Copy, EyeSlash } from 'phosphor-react';
+import React from 'react';
+import type { NextPage } from 'next';
+import Image from 'next/image';
+import { Header, Table } from '../src/app/components';
+import list from '../src/assets/list.svg';
+import { AccountList } from '../src/app/features';
 
 const HomeAuth: NextPage = () => {
+  const data = {
+    bank: 352,
+    branch: '0001',
+    account_number: '912391-3',
+    cpf: '09998798749',
+    balance: 'R$ 1000,00',
+  };
+
   return (
-    <div className="h-screen bg-gray-100">
+    <div className="h-full bg-gray-100 pb-10">
       <Header />
-      <main className="flex items-center justify-between gap-12 max-w-7xl mx-auto mt-12 py-8 px-8">
-        <div className="w-2/4 space-y-2">
-          <h2 className="font-bold tracking-wide text-5xl leading-tight	">Sua conta está aberta, Fulano!</h2>
-          <p className="text-sm text-gray-400">O próximo passo é transferir recursos para começar a investir. Lembre-se que a conta de onde você está transferindo o dinheiro também deve estar no seu nome.</p>
+      <main className="block md:flex items-center justify-between gap-12 max-w-7xl mx-auto mt-12 py-8 px-8">
+        <div className="md:w-2/4 space-y-2">
+          <h2 className="text-center text-3xl font-bold tracking-wide md:text-5xl md:text-start leading-tight">
+            Sua conta está aberta, Fulano!
+          </h2>
+          <p className="w-76 mx-auto text-center text-sm md:text-start text-gray-400 md:w-full">
+            O próximo passo é transferir recursos para começar a investir.
+            Lembre-se que a conta de onde você está transferindo o dinheiro
+            também deve estar no seu nome.
+          </p>
         </div>
-        <div className="flex flex-col w-96 justify-center items-start space-y-2">
-          <div className="group transition ease-in duration-200 w-full flex items-center justify-between gap-10 bg-white px-6 py-4 rounded-md text-gray-500 cursor-pointer hover:bg-primary hover:text-white hover:scale-105">
-            <p>Banco: </p>
-            <p className="flex items-center gap-2">
-              352 (Toro) 
-              <Copy size={24} className="transition ease-in text-primary group-hover:text-white" weight="light" />
-            </p>
-          </div>
-          <div className="group transition ease-in duration-200 w-full flex items-center justify-between gap-10 bg-white px-6 py-4 rounded-md text-gray-500 cursor-pointer hover:bg-primary hover:text-white hover:scale-105">
-            <p>Agência: </p>
-            <p className="flex items-center gap-2">
-              0001
-              <Copy size={24} className="transition ease-in text-primary group-hover:text-white" weight="light" />
-            </p>
-          </div>
-          <div className="group transition ease-in duration-200 w-full flex items-center justify-between gap-10 bg-white px-6 py-4 rounded-md text-gray-500 cursor-pointer hover:bg-primary hover:text-white hover:scale-105">
-            <p>Conta corrente: </p>
-            <p className="flex items-center gap-2">
-              912391-3
-              <Copy size={24} className="transition ease-in text-primary group-hover:text-white" weight="light" />
-            </p>
-          </div>
-          <div className="group transition ease-in duration-200 w-full flex items-center justify-between gap-10 bg-white px-6 py-4 rounded-md text-gray-500 cursor-pointer hover:bg-primary hover:text-white hover:scale-105">
-            <p>Seu CPF:</p>
-            <p className="flex items-center gap-2">
-              085.236.114-95
-              <Copy size={24} className="transition ease-in text-primary group-hover:text-white" weight="light" />
-            </p>
-          </div>
-          <div className="group transition ease-in duration-200 w-full flex items-center justify-between gap-10 bg-white px-6 py-4 rounded-md text-gray-500 cursor-pointer hover:bg-primary hover:text-white hover:scale-105">
-            <p>Favorecido: </p>
-            <p>Mesma titularidade</p>
-          </div>
-          <div className="group transition ease-in duration-200 w-full flex items-center justify-between gap-10 bg-white px-6 py-4 rounded-md text-gray-500 cursor-pointer hover:bg-primary hover:text-white hover:scale-105">
-            <p>Saldo: </p>
-            <p className="flex items-center gap-2">
-              R$ 1000,00
-              <EyeSlash size={24} className="transition ease-in text-primary group-hover:text-white" weight="light" />
-            </p>
-          </div>
+        <div className="mt-10 md:mt-0">
+          <AccountList data={data} />
         </div>
       </main>
+      <div className="flex items-center justify-center mx-auto md:hidden">
+        <button className="py-4 px-12 bg-primary text-white font-medium rounded-xl">
+          Ver Histórico de transações
+        </button>
+      </div>
+      <div className="hidden md:flex items-center space-x-64 max-w-7xl mx-auto mt-4 py-8 pb-20 px-8">
+        <Table
+          title="Histórico de transações"
+          columns={[
+            'CPF Titular',
+            'Beneficiário',
+            'Data da transação',
+            'Valor',
+          ]}
+          rows={[
+            {
+              sourceCpf: '***.***.**9-99',
+              targetName: 'Fulano Ciclano',
+              date: '28 jun - 14:45',
+              value: 'R$ 1000,00',
+            },
+            {
+              sourceCpf: '***.***.**9-99',
+              targetName: 'Fulano Ciclano',
+              date: '28 jun - 14:45',
+              value: 'R$ 1000,00',
+            },
+            {
+              sourceCpf: '***.***.**9-99',
+              targetName: 'Fulano Ciclano',
+              date: '28 jun - 14:45',
+              value: 'R$ 1000,00',
+            },
+          ]}
+        />
+        <div className="w-72">
+          <Image className="contains" src={list} alt="" />
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default HomeAuth;
