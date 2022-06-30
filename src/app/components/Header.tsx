@@ -1,55 +1,64 @@
-import { Button, useDisclosure } from "@chakra-ui/react";
-import Image from "next/image";
-import Link from "next/link";
-import { BellSimple, List } from "phosphor-react";
-import { useRef } from "react";
-import logo from '../../../assets/logo.svg';
-import {Drawer} from './';
+import React, { useRef } from 'react';
+import { Button as ButtonChakraUi, useDisclosure } from '@chakra-ui/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import logo from '../../assets/logo.svg';
+import { Drawer, Button } from '.';
+import { Bell, Hamburger } from './Icon';
+import { Ancora } from './Typography';
 
 function Header() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = useRef<HTMLButtonElement>(null)
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   const authenticated = true;
+
   return (
     <header className="flex justify-between p-5 max-w-7xl mx-auto">
-      <Drawer isOpen={isOpen} onOpen={onOpen} onClose={onClose} btnRef={btnRef}/>
+      <Drawer
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        btnRef={btnRef}
+      />
       <div className="flex items-center space-x-5 cursor-pointer">
-        <Link href='/'>
-          <Image
-            className=""
-            src={logo}
-            alt="Logo Toro Investimentos"
-          />
+        <Link href="/">
+          <Image className="" src={logo} alt="Logo Toro Investimentos" />
         </Link>
       </div>
 
       <div className="hidden lg:inline-flex items-center space-x-14">
-          <h3 className="transition duration-150 uppercase text-sm font-medium hover:text-gray-400 cursor-pointer">Bolsa</h3>
-          <h3 className="transition duration-150 uppercase text-sm font-medium hover:text-gray-400 cursor-pointer">Mais investimentos</h3>
-          <h3 className="transition duration-150 uppercase text-sm font-medium hover:text-gray-400 cursor-pointer">Aprenda</h3>
-          <h3 className="transition duration-150 uppercase text-sm font-medium hover:text-gray-400 cursor-pointer">Plataformas</h3>
-          <h3 className="transition duration-150 uppercase text-sm font-medium hover:text-gray-400 cursor-pointer">Ajuda</h3>
-        </div>
-        
-        <div className="flex items-center space-x-5">
-          { !authenticated ? (
-              <>
-              <button className="transition ease-in duration-150 px-4 py-2 border-2 border-primary rounded text-primary text-sm font-medium hover:text-white hover:bg-primary">Entrar</button>
-              <button className="transition ease-in duration-150 px-4 py-2 border-2 border-primary rounded text-primary text-sm font-medium hover:text-white hover:bg-primary">Cadastre-se</button>
-            </>
-          ) : (
-            <>
-              <BellSimple size={24} className="cursor-pointer" color="#111" weight="light" />
-              <h1 className="font-medium">Fulano</h1>
-              <Button ref={btnRef}  onClick={onOpen}>
-                <List size={28} className="cursor-pointer" color="#111" weight="light" />
-              </Button>
-            </>
-          ) }
-        </div>
+        {['Bolsa', 'Mais Investimentos', 'Aprenda', 'Plataformas', 'Ajuda'].map(
+          (val) => (
+            <Ancora key={val} variant="mixed" type="ancora">
+              {val}
+            </Ancora>
+          ),
+        )}
+      </div>
+
+      <div className="flex items-center space-x-5">
+        {!authenticated ? (
+          <>
+            <Link href="/signin">
+              <Button variant="mixed">Entrar</Button>
+            </Link>
+            <Link href="/signup">
+              <Button variant="mixed">Cadastre-se</Button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Bell />
+            <h1 className="font-medium">Fulano</h1>
+            <ButtonChakraUi ref={btnRef} onClick={onOpen}>
+              <Hamburger />
+            </ButtonChakraUi>
+          </>
+        )}
+      </div>
     </header>
-  )
+  );
 }
 
 export default Header;
