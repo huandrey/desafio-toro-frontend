@@ -1,0 +1,19 @@
+.root {
+  @apply text-sm;
+}
+
+.primary {
+  @apply font-medium text-gray-900;
+}
+
+.mixed {
+  @apply transition duration-150 uppercase font-medium hover:text-gray-400 cursor-pointer;
+}
+
+.ancora {
+  @apply cursor-pointer uppercase;
+}
+
+.h5 {
+  @apply py-1 text-lg
+}
