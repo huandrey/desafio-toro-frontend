@@ -1,0 +1,15 @@
+.root {
+  @apply px-4 py-2 border-2 border-primary rounded text-white bg-primary text-sm font-medium; 
+}
+
+.primary {
+  @apply text-white
+}
+
+.secondary {
+  @apply text-primary;
+}
+
+.mixed {
+  @apply transition ease-in duration-150 bg-white text-primary hover:text-white hover:bg-primary;
+}
