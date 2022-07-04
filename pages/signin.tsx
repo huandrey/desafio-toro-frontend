@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { FormEvent, useContext } from 'react';
 import { NextPage } from 'next';
 import { useForm } from 'react-hook-form';
-import { Field, Header } from '../src/app/components';
+import { Field } from '../src/app/components';
+import { Header } from '../src/app/features';
+import { AuthContext } from '../src/core/context/AuthContext';
 
 const Signin: NextPage = () => {
   const {
     register,
-    // handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm({
     mode: 'onBlur',
   });
 
-  // const onSubmit = (data: any) => console.log(data);
+  const { signIn } = useContext(AuthContext);
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { email, password } = getValues();
+    signIn({ email, password });
+  };
 
   const firstFields = [
     {
@@ -20,23 +28,12 @@ const Signin: NextPage = () => {
       name: 'email',
       type: 'email',
       label: 'E-mail ou CPF',
-      validation: {
-        // required: true,
-        // maxLength: 20,
-      },
     },
     {
       id: 'password',
       name: 'password',
       type: 'password',
       label: 'Senha',
-      validation: {
-        // required: "required",
-        // pattern: {
-        //   value: /\S+@\S+\.\S+/,
-        //   message: "Endereço de e-mail inválido.",
-        // },
-      },
     },
   ];
 
@@ -45,13 +42,12 @@ const Signin: NextPage = () => {
       <Header />
       <div className="max-w-7xl mx-auto flex py-16">
 
-        <form className="w-96 mx-auto bg-white px-14 py-10 shadow-md rounded-lg">
+        <form className="w-96 mx-auto bg-white px-14 py-10 shadow-md rounded-lg" onSubmit={(e) => onSubmit(e)}>
           <h2 className="text-2xl w-90 font-bold mb-4 md:mb-10">
             Acesse sua conta Toro.
           </h2>
           {firstFields.map(({
-            id, name, type, label
-            // validation,
+            id, name, type, label,
           }) => (
             <Field
               key={id}

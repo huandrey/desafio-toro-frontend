@@ -2,8 +2,9 @@ import React from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { Field, Header } from '../src/app/components';
+import { Field } from '../src/app/components';
 import scale from '../assets/scale.svg';
+import { Header } from '../src/app/features';
 
 const Signup: NextPage = () => {
   const {

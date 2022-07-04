@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { Header, Table } from '../src/app/components';
+import { Table } from '../src/app/components';
 import list from '../src/assets/list.svg';
-import { AccountList } from '../src/app/features';
+import { AccountList, Header } from '../src/app/features';
+import { AuthContext } from '../src/core/context/AuthContext';
 
 const HomeAuth: NextPage = () => {
   const data = {
@@ -14,13 +15,15 @@ const HomeAuth: NextPage = () => {
     balance: 'R$ 1000,00',
   };
 
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="h-full bg-gray-100 pb-10">
       <Header />
       <main className="block md:flex items-center justify-between gap-12 max-w-7xl mx-auto mt-12 py-8 px-8">
         <div className="md:w-2/4 space-y-2">
           <h2 className="text-center text-3xl font-bold tracking-wide md:text-5xl md:text-start leading-tight">
-            Sua conta está aberta, Fulano!
+            {`Sua conta está aberta, ${!!user && user?.first_name}!`}
           </h2>
           <p className="w-76 mx-auto text-center text-sm md:text-start text-gray-400 md:w-full">
             O próximo passo é transferir recursos para começar a investir.

@@ -2,7 +2,7 @@ import React from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '../src/app/components/Header';
+import { Header } from '../src/app/features';
 import pig from '../src/assets/pig.svg';
 
 const Home: NextPage = () => {
