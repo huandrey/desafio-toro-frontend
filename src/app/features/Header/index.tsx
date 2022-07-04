@@ -1,17 +1,20 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Button as ButtonChakraUi, useDisclosure } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '../../assets/logo.svg';
-import { Drawer, Button } from '.';
-import { Bell, Hamburger } from './Icon';
-import { Ancora } from './Typography';
+import logo from '../../../assets/logo.svg';
+import { Drawer, Button } from '../../components';
+import { Bell, Hamburger } from '../../components/Icon';
+import { Ancora } from '../../components/Typography';
+import { AuthContext } from '../../../core/context/AuthContext';
 
 function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement>(null);
 
   const authenticated = true;
+
+  const { user } = useContext(AuthContext);
 
   return (
     <header className="flex justify-between p-5 max-w-7xl mx-auto">
@@ -50,7 +53,7 @@ function Header() {
         ) : (
           <>
             <Bell />
-            <h1 className="font-medium">Fulano</h1>
+            <h1 className="font-medium">{!!user && user?.first_name}</h1>
             <ButtonChakraUi ref={btnRef} onClick={onOpen}>
               <Hamburger />
             </ButtonChakraUi>
