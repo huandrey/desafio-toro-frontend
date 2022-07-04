@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { accountPropsTranslate } from '../../core/constants';
+import { accountResponseTranslate } from '../../core/constants';
 import { formatObject } from '../../core/utils';
 import { cpfCnpjFormatMask, moneyFormatMask } from '../../core/utils/mask';
 import { Copy, Eye, EyeSlash } from '../components/Icon';
@@ -36,7 +36,7 @@ function AccountList({ data }: AccountListProps) {
           className="group transition ease-in duration-200 w-full flex items-center justify-between gap-10 bg-white px-6 py-4 rounded-md text-gray-500 cursor-pointer hover:bg-primary hover:text-white hover:scale-105"
         >
           <p>
-            {accountPropsTranslate[key]}
+            {accountResponseTranslate[key]}
             :
             {' '}
           </p>

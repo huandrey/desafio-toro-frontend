@@ -36,7 +36,7 @@ function Table({
             rows.map(({
               sourceCpf, targetName, date, value,
             }: any) => (
-              <Tr key={1}>
+              <Tr key={Math.floor(Math.random() * (10000) + 1)}>
                 <Td color="gray.500">{sourceCpf}</Td>
                 <Td color="gray.500">{targetName}</Td>
                 <Td color="gray.500">{date}</Td>
