@@ -1,6 +1,6 @@
 const accountPropsTranslate: any = {
   bank: 'Banco',
-  branch: 'Agencia',
+  agency_number: 'Agencia',
   account_number: 'Conta',
   cpf: 'Seu CPF',
   balance: 'Saldo',
