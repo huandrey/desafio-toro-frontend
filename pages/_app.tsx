@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import { AuthProvider } from '../src/core/context';
+import { AccountProvider, AuthProvider } from '../src/core/context';
 
 const customTheme = extendTheme({
   components: {
@@ -28,9 +28,11 @@ const customTheme = extendTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <ChakraProvider theme={customTheme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <AccountProvider>
+        <ChakraProvider theme={customTheme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </AccountProvider>
     </AuthProvider>
   );
 }
