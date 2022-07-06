@@ -16,8 +16,4 @@ describe('Checks if boto receives children correctly.', () => {
     expect(getByText('Plataformas')).toBeInTheDocument();
     expect(getByText('Ajuda')).toBeInTheDocument();
   });
-
-  // it('', () => {
-
-  // })
 });
