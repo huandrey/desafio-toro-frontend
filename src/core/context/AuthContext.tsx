@@ -23,7 +23,7 @@ type AuthProviderProps = {
 export const AuthContext = createContext({} as AuthContextData);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   // console.log(user);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
