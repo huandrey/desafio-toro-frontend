@@ -1,28 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import { Table } from '../src/app/components';
 import list from '../src/assets/list.svg';
 import { AccountList, Header } from '../src/app/features';
 import { AuthContext } from '../src/core/context/AuthContext';
+import { AccountContext } from '../src/core/context/AccountContext';
 
 const HomeAuth: NextPage = () => {
-  const data = {
-    bank: 352,
-    branch: '0001',
-    account_number: '912391-3',
-    cpf: '09998798749',
-    balance: 'R$ 1000,00',
-  };
-
   const { user } = useContext(AuthContext);
+  const { getAccount, account } = useContext(AccountContext);
 
+  useEffect(() => {
+    async function ad() {
+      if (user) {
+        await getAccount(user.id);
+      }
+    }
+    ad();
+  }, [user]);
   return (
     <div className="h-full bg-gray-100 pb-10">
       <Header />
       <main className="block md:flex items-center justify-between gap-12 max-w-7xl mx-auto mt-12 py-8 px-8">
         <div className="md:w-2/4 space-y-2">
-          <h2 className="text-center text-3xl font-bold tracking-wide md:text-5xl md:text-start leading-tight">
+          <h2 className="text-center text-3xl font-bold tracking-wide md:text-5xl md:text-start mb-4">
             {`Sua conta está aberta, ${!!user && user?.first_name}!`}
           </h2>
           <p className="w-76 mx-auto text-center text-sm md:text-start text-gray-400 md:w-full">
@@ -32,7 +34,7 @@ const HomeAuth: NextPage = () => {
           </p>
         </div>
         <div className="mt-10 md:mt-0">
-          <AccountList data={data} />
+          <AccountList data={account} />
         </div>
       </main>
       <div className="flex items-center justify-center mx-auto md:hidden">

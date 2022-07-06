@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Drawer,
   DrawerBody,
@@ -10,10 +10,12 @@ import {
 } from '@chakra-ui/react';
 import { drawerConstants } from '../../core/constants';
 import { Subtitle } from './Typography';
+import { AuthContext } from '../../core/context/AuthContext';
 
 function DrawerCustom({
   isOpen, onClose, btnRef,
 }: any) {
+  const { user } = useContext(AuthContext);
   return (
     <Drawer
       isOpen={isOpen}
@@ -25,7 +27,7 @@ function DrawerCustom({
       <DrawerOverlay />
       <DrawerContent py={6} px={6}>
         <DrawerCloseButton size="lg" my={7} mx={6} />
-        <DrawerHeader>Olá, Fulano</DrawerHeader>
+        <DrawerHeader>{`Olá, ${user?.first_name}!`}</DrawerHeader>
         <br />
         <DrawerBody>
           {drawerConstants.map((val) => (
