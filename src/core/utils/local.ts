@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 export function saveLocal(key: string, data: any) {
   const stateNow = localStorage.getItem('state');
   if (!stateNow) {
@@ -10,4 +12,11 @@ export function saveLocal(key: string, data: any) {
 export function takeLocal(key: string) {
   const value = localStorage.getItem(key);
   return value;
+}
+
+export function getToken() {
+  const token = Cookies.get('token');
+  console.log(token);
+
+  return token;
 }
