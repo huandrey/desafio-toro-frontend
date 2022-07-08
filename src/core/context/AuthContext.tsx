@@ -1,19 +1,29 @@
 import React, {
   createContext, ReactNode, useEffect, useMemo, useState,
 } from 'react';
-import Cookies from 'js-cookie';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import Router from 'next/router';
 import { Auth } from '../services/auth.service';
-import { saveLocal } from '../utils/local';
+import { HttpResponse } from '../services/protocols/httpClient';
 
-type SignInCredentials = {
+interface User {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  cpf: string;
+}
+
+interface SignInCredentials {
   email: string
   password: string
-};
+}
 
-type AuthContextData = {
-  signIn(credentials: SignInCredentials): Promise<void>
+export type AuthContextData = {
+  signIn(credentials: SignInCredentials): Promise<HttpResponse<any>>
   isAuthenticated: boolean
-  user: any;
+  user: User | null;
+  logout: () => void;
 };
 
 type AuthProviderProps = {
@@ -23,31 +33,44 @@ type AuthProviderProps = {
 export const AuthContext = createContext({} as AuthContextData);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  // console.log(user);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isAuthenticated = !!user;
 
   useEffect(() => {
-    setIsAuthenticated(Cookies.get('token'));
-    if (typeof window !== 'undefined') {
-      const { user: storagedUser } = JSON.parse(localStorage.getItem('state'));
-
-      setUser(storagedUser);
+    const { 'nextauth.token': token } = parseCookies();
+    if (token) {
+      Auth.recoveryUserData().then((res) => {
+        setUser(res?.data);
+      });
     }
   }, []);
 
   async function signIn({ email, password }: SignInCredentials) {
-    setIsAuthenticated((prev) => !prev);
-    const { data } = await Auth.signIn({ email, password });
-    Cookies.set('token', data.token);
-    saveLocal('user', data.user);
-    saveLocal('isAuthenticated', true);
+    const res = await Auth.signIn({ email, password });
+    if (res.statusCode === 200) {
+      setCookie(undefined, 'nextauth.token', res?.data?.token, {
+        maxAge: 8600,
+      });
+
+      setUser(res?.data?.user);
+
+      Router.push('/home');
+    }
+    return res;
+  }
+
+  function logout() {
+    destroyCookie(null, 'nextauth.token');
+    setUser(null);
+    Router.push('/');
   }
 
   const AuthContextValues = useMemo(
-    () => ({ signIn, isAuthenticated, user }),
-    [signIn, isAuthenticated, user],
+    () => ({
+      signIn, isAuthenticated, user, logout,
+    }),
+    [signIn, isAuthenticated, user, logout],
   );
 
   return (
