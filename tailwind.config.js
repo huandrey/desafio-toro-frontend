@@ -13,6 +13,7 @@ module.exports = {
     colors: {
       primary: '#6130b3',
       primaryDark: '#1F073B',
+      accentDark: '#330066',
       white: '#ffffff',
       'gray-100': '#f1f5f9',
       'gray-400': '#94a3b8',
@@ -20,7 +21,8 @@ module.exports = {
       'gray-500': '#475569',
       'gray-900': '#111827',
       'red-600': '#dc2626',
-      rose: '#E8507F',
+      'green-600': 'rgb(22 163 74)',
+      'rose': '#E8507F',
     },
     extend: {},
   },
