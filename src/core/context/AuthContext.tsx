@@ -6,7 +6,7 @@ import Router from 'next/router';
 import { Auth } from '../services/auth.service';
 import { HttpResponse } from '../services/protocols/httpClient';
 
-interface User {
+export interface User {
   id: string;
   first_name: string;
   last_name: string;
@@ -14,16 +14,16 @@ interface User {
   cpf: string;
 }
 
-interface SignInCredentials {
+export interface SignInCredentials {
   email: string
   password: string
 }
 
 export type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<HttpResponse<any>>
-  isAuthenticated: boolean
+  isAuthenticated?: boolean
   user: User | null;
-  logout: () => void;
+  logout?: () => void;
 };
 
 type AuthProviderProps = {

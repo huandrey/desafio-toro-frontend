@@ -1,6 +1,5 @@
-import { parseCookies } from 'nookies';
 import React, {
-  createContext, ReactNode, useEffect, useMemo, useState,
+  createContext, ReactNode, SetStateAction, useMemo, useState,
 } from 'react';
 import { Account as AccountService } from '../services/account.service';
 import { HttpResponse } from '../services/protocols/httpClient';
@@ -12,11 +11,11 @@ interface Account {
   balance: string;
 }
 
-type AccountContextData = {
-  getAccount(userId: string): Promise<HttpResponse<any>>
+export type AccountContextData = {
+  getAccount(userId: string): Promise<HttpResponse<any>>;
   account: Account | null;
-  createAccount(userId: string): Promise<HttpResponse<any>>
-  setAccount(account: Account): () => void;
+  createAccount(userId: string): Promise<HttpResponse<any>>;
+  setAccount(account: Account): React.Dispatch<SetStateAction<Account | null>>;
 };
 
 type AccountProviderProps = {
