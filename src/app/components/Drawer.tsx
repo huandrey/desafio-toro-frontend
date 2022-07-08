@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useContext } from 'react';
 import {
   Drawer,
@@ -7,6 +8,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Divider,
+  Button,
 } from '@chakra-ui/react';
 import { drawerConstants } from '../../core/constants';
 import { Subtitle } from './Typography';
@@ -15,7 +17,12 @@ import { AuthContext } from '../../core/context/AuthContext';
 function DrawerCustom({
   isOpen, onClose, btnRef,
 }: any) {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
+
+  function endSession() {
+    logout();
+  }
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -34,13 +41,14 @@ function DrawerCustom({
             <div key={val}>
               <Subtitle type="h5">{val !== 'br' && val}</Subtitle>
               {val === 'br' && (
-              <>
-                <Divider orientation="horizontal" py={3} />
-                <br />
-              </>
+                <>
+                  <Divider orientation="horizontal" py={3} />
+                  <br />
+                </>
               )}
             </div>
           ))}
+          <Button onClick={endSession}>Sair</Button>
         </DrawerBody>
       </DrawerContent>
     </Drawer>
