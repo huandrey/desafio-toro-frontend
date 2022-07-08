@@ -20,6 +20,7 @@ function DrawerCustom({
   const { user, logout } = useContext(AuthContext);
 
   function endSession() {
+    onClose();
     logout();
   }
 
