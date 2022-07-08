@@ -61,9 +61,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   }
 
   function logout() {
+    Router.push('/');
     destroyCookie(null, 'nextauth.token');
     setUser(null);
-    Router.push('/');
   }
 
   const AuthContextValues = useMemo(
