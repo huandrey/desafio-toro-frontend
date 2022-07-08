@@ -1,0 +1,12 @@
+
+.root {
+  @apply transition duration-200 ease-in w-full flex items-center justify-center px-8 py-4 rounded bg-primary text-white font-medium uppercase text-sm cursor-pointer hover:bg-accentDark;
+}
+
+.fit {
+  @apply md:w-fit
+}
+
+.full {
+  @apply transition duration-200 ease-in w-full px-8 py-4 rounded bg-primary text-white font-medium uppercase text-sm cursor-pointer hover:bg-accentDark;
+}
