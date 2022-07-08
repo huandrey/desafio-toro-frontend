@@ -6,7 +6,6 @@ const drawerConstants = [
   'Renda fixa e tesouro',
   ' Todos os Produtos',
   'br',
-  'Sair',
 ];
 
 export default drawerConstants;
