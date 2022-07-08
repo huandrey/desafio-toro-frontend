@@ -29,6 +29,7 @@ describe('Check header render correctly', () => {
 
   it('should be visible the name of the user in header if authenticated', () => {
     const user = {
+      id: '',
       email: 'john.doe@mail.com',
       cpf: '12345678910',
       first_name: 'John',
@@ -53,13 +54,3 @@ describe('Check header render correctly', () => {
     expect(screen.getByText('Cadastre-se')).toBeInTheDocument();
   });
 });
-
-// test('UserGreeter salutes a user', () => {
-//   const user = { name: 'Giorgio' };
-//   render(
-//     <UserContext.Provider value={user}>
-//       <UserGreeter />
-//     </UserContext.Provider>,
-//   );
-//   expect(screen.getByText(`Hello ${user.name}!`)).toBeInTheDocument();
-// });
