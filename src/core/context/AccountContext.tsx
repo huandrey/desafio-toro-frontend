@@ -1,5 +1,5 @@
 import React, {
-  createContext, ReactNode, SetStateAction, useMemo, useState,
+  createContext, ReactNode, useMemo, useState,
 } from 'react';
 import { Account as AccountService } from '../services/account.service';
 import { HttpResponse } from '../services/protocols/httpClient';
@@ -15,7 +15,7 @@ export type AccountContextData = {
   getAccount(userId: string): Promise<HttpResponse<any>>;
   account: Account | null;
   createAccount(userId: string): Promise<HttpResponse<any>>;
-  setAccount(account: Account): React.Dispatch<SetStateAction<Account | null>>;
+  setAccount(account: Account): void;
 };
 
 type AccountProviderProps = {
