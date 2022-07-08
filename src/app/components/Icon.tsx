@@ -6,6 +6,7 @@ import {
   Copy as CopyPhosphor,
   EyeSlash as EyeSlashPhosphor,
   Eye as EyePhosphor,
+  Plus as PlusPhosphor,
 } from 'phosphor-react';
 
 export const Bell = () => (
@@ -19,6 +20,10 @@ export const Bell = () => (
 
 export const Hamburger = () => (
   <List size={24} className="cursor-pointer" color="#111" weight="light" />
+);
+
+export const Plus = () => (
+  <PlusPhosphor size={16} color="#fff" weight="bold" />
 );
 
 export const Copy = () => (
