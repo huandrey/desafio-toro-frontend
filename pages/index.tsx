@@ -1,13 +1,22 @@
-import React from 'react';
-import type { NextPage } from 'next';
+import React, { useContext } from 'react';
+import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
 import { Header } from '../src/app/features';
 import pig from '../src/assets/pig.svg';
+import { AuthContext } from '../src/core/context/AuthContext';
 
 const Home: NextPage = () => {
-  const authenticated = false;
+  // const authenticated = false;
+  const { isAuthenticated } = useContext(AuthContext);
   const haveAccount = false;
+  const router = useRouter();
+  function createAccount() {
+    if (isAuthenticated && !haveAccount) createAccount();
+
+    router.push('/signin');
+  }
   return (
     <div className="">
       <Header />
@@ -39,9 +48,7 @@ const Home: NextPage = () => {
             naquele mês. A rentabilidade histórica dessa carteira até Março de 2022 é de +66,86%.
           </h3>
           {!haveAccount && (
-            <Link href={authenticated ? '*' : '/signin'}>
-              <button className="w-full md:w-fit px-16 py-4 inline-block bg-primary text-lg text-white rounded-md">Abra sua conta grátis</button>
-            </Link>
+          <button onClick={createAccount} className="w-full md:w-fit px-16 py-4 inline-block bg-primary text-lg text-white rounded-md">Abra sua conta grátis</button>
           )}
         </div>
       </main>
@@ -50,3 +57,20 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'nextauth.token': token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+    },
+  };
+};
