@@ -1,8 +1,9 @@
 import React from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, ToastProvider } from '@chakra-ui/react';
 import { AccountProvider, AuthProvider } from '../src/core/context';
+import 'react-toastify/dist/ReactToastify.css';
 
 const customTheme = extendTheme({
   components: {
@@ -27,13 +28,15 @@ const customTheme = extendTheme({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <AccountProvider>
-        <ChakraProvider theme={customTheme}>
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </AccountProvider>
-    </AuthProvider>
+    <ToastProvider>
+      <AuthProvider>
+        <AccountProvider>
+          <ChakraProvider theme={customTheme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </AccountProvider>
+      </AuthProvider>
+    </ToastProvider>
   );
 }
 
