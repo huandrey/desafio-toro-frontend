@@ -1,11 +1,21 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Header } from '..';
+import { AuthContext, AuthContextData } from '../../../core/context/AuthContext';
 
 jest.mock('next/link', () => ({ children }) => children); jest.mock('next/image', () => ({ children }) => children);
 
-describe('Checks if boto receives children correctly.', () => {
-  it('Check button renders correctly', () => {
+function renderAuthContext(params: AuthContextData) {
+  return render(
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <AuthContext.Provider value={{ ...params }}>
+      <Header />
+    </AuthContext.Provider>,
+  );
+}
+
+describe('Check header render correctly', () => {
+  it('should be visible the menu texts in header', () => {
     const { getByText } = render(
       <Header />,
     );
@@ -16,4 +26,40 @@ describe('Checks if boto receives children correctly.', () => {
     expect(getByText('Plataformas')).toBeInTheDocument();
     expect(getByText('Ajuda')).toBeInTheDocument();
   });
+
+  it('should be visible the name of the user in header if authenticated', () => {
+    const user = {
+      email: 'john.doe@mail.com',
+      cpf: '12345678910',
+      first_name: 'John',
+      last_name: 'Doe',
+    };
+    const isAuthenticated = true;
+    const signIn = () => Promise.resolve();
+
+    renderAuthContext({ user, isAuthenticated, signIn });
+
+    expect(screen.getByText('John')).toBeInTheDocument();
+  });
+
+  it('', () => {
+    const user = {};
+    const isAuthenticated = false;
+    const signIn = () => Promise.resolve();
+
+    renderAuthContext({ user, isAuthenticated, signIn });
+
+    expect(screen.getByText('Entrar')).toBeInTheDocument();
+    expect(screen.getByText('Cadastre-se')).toBeInTheDocument();
+  });
 });
+
+// test('UserGreeter salutes a user', () => {
+//   const user = { name: 'Giorgio' };
+//   render(
+//     <UserContext.Provider value={user}>
+//       <UserGreeter />
+//     </UserContext.Provider>,
+//   );
+//   expect(screen.getByText(`Hello ${user.name}!`)).toBeInTheDocument();
+// });
