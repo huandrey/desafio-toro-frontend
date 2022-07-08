@@ -10,7 +10,11 @@ import { AccountContext } from '../src/core/context/AccountContext';
 import { Account } from '../src/core/services/account.service';
 import { Transaction } from '../src/core/services/transaction.service';
 
-const HomeAuth: NextPage = (props) => {
+interface HomePageProps {
+  token: string;
+}
+
+const HomeAuth: NextPage = (props: HomePageProps) => {
   const { user } = useContext(AuthContext);
   const { getAccount, account, setAccount } = useContext(AccountContext);
   const [transactions, setTransactions] = useState([]);
