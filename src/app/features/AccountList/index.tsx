@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import copy from 'copy-to-clipboard';
 import { toast } from 'react-toastify';
-import { accountResponseTranslate } from '../../core/constants';
-import { formatObject } from '../../core/utils';
-import { cpfCnpjFormatMask, moneyFormatMask } from '../../core/utils/mask';
-import { Copy, Eye, EyeSlash } from '../components/Icon';
+import { accountResponseTranslate } from '../../../core/constants';
+import { formatObject } from '../../../core/utils';
+import { cpfCnpjFormatMask, moneyFormatMask } from '../../../core/utils/mask';
+import { Copy, Eye, EyeSlash } from '../../components/Icon';
 
 interface ItemProps {
   title: string;
