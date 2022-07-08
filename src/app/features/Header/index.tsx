@@ -12,9 +12,7 @@ function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  const authenticated = true;
-
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
 
   return (
     <header className="flex justify-between p-5 max-w-7xl mx-auto">
@@ -41,7 +39,7 @@ function Header() {
       </div>
 
       <div className="flex items-center space-x-5">
-        {!authenticated ? (
+        {!isAuthenticated ? (
           <>
             <Link href="/signin">
               <Button variant="mixed">Entrar</Button>
@@ -53,7 +51,7 @@ function Header() {
         ) : (
           <>
             <Bell />
-            <h1 className="font-medium">{!!user && user?.first_name}</h1>
+            <h1 className="font-medium">{user?.first_name}</h1>
             <ButtonChakraUi ref={btnRef} onClick={onOpen}>
               <Hamburger />
             </ButtonChakraUi>
