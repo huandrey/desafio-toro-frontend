@@ -1,23 +1,33 @@
 # Next.js + Tailwind CSS Example
+# Desafio Toro Frontend
+### Aplicação feita em nextjs para resolução das users stories escolhidas.
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+### Features
 
-## Deploy your own
+TORO-001 - Eu, como investidor, gostaria de acessar a plataforma Toro usando minhas credenciais de usuário e senha, para que eu possa aprender mais, investir mais e acompanhar meus investimentos. 
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+TORO-003 - Eu, como investidor, gostaria de poder depositar um valor na minha conta Toro, através de PiX ou TED bancária, para que eu possa realizar investimentos.
+- Para o frontend vc deve garantir que o usuário possa visualizar as informações de patrimônio conforme descritas na US e na proposta da API de backend.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
 
-## How to use
+Para rodar a aplicação basta instalar as dependências utilizadas no projeto (npm ou yarn):
+```sh
+npm install 
+```
+Ou, caso utilize yarn:
+```sh
+yarn 
+```
+Após esse comando, basta da run na aplicação:
+```sh
+yarn dev
+```
+A porta default será a 3000, caso nenhuma outra aplicação esteja utilizando a porta.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
+Para rodar os testes:
+```sh
+yarn jest
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## License
+MIT
