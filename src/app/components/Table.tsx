@@ -73,6 +73,7 @@ function Table({
           }
         </Tbody>
       </TableChakraUI>
+      {!rows.length && <div className="flex items-center justify-center text-center py-4 font-medium text-gray-500">Você não possui transações no momento.</div>}
     </TableContainer>
   );
 }
