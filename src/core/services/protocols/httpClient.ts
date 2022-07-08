@@ -22,6 +22,6 @@ export enum HttpStatusCode {
 }
 
 export type HttpResponse<T = any> = {
-  // statusCode: HttpStatusCode
+  statusCode: HttpStatusCode
   data?: T
 };
